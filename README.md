@@ -4,3 +4,4 @@
 - esperandio/architecture-patterns-with-dotnet (https://github.com/esperandio/architecture-patterns-with-dotnet)
 - Differences Between Oracle JDK and OpenJDK (https://www.baeldung.com/oracle-jdk-vs-openjdk)
 - Structuring and Building a Software Component with Gradle (https://docs.gradle.org/8.1.1/userguide/multi_project_builds.html)
+- The Java Library Plugin (https://docs.gradle.org/current/userguide/java_library_plugin.html)
