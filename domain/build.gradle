@@ -2,6 +2,25 @@ plugins {
     id 'application'
 }
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(platform('org.junit:junit-bom:5.9.3'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+}
+
+test {
+    // Discover and execute JUnit Platform-based tests
+    useJUnitPlatform()
+
+    // Show standard out and standard error of the test JVM(s) on the console {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
 application {
     mainClass = 'com.example.Hello'
 }

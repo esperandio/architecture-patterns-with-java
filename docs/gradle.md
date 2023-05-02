@@ -9,3 +9,9 @@ gradle -q projects
 ```sh
 gradle -q run
 ```
+
+## Run tests
+
+```sh
+gradle test
+```
