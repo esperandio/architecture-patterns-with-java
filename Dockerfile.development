@@ -1,0 +1,7 @@
+FROM bellsoft/liberica-openjdk-debian:17.0.7-7
+
+RUN apt-get update && apt-get install -y \
+        git
+
+COPY --from=gradle /opt/gradle/ /opt/gradle/
+RUN ln -s /opt/gradle/bin/gradle /usr/bin/gradle
