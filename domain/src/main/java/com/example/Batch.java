@@ -27,8 +27,16 @@ public class Batch {
         return this.purchasedQuantity;
     }
 
+    private boolean hasOrderLine(OrderLine orderLine) {
+        return this.orderLines.stream().filter((x) -> x.equals(orderLine)).count() > 0;
+    }
+
     public void allocate(OrderLine orderLine) {
         if (orderLine.getQuantity() > this.getAvailableQuantity()) {
+            return;
+        }
+
+        if (this.hasOrderLine(orderLine)) {
             return;
         }
 

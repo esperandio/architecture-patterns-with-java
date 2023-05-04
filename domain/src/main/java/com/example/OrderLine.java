@@ -16,4 +16,16 @@ public class OrderLine {
     public int getQuantity() {
         return this.quantity;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        OrderLine orderLine = (OrderLine) o;
+
+        if (orderLine == null) {
+            return false;
+        }
+
+        return orderLine.quantity == this.quantity
+            && orderLine.sku == this.sku;
+    }
 }
