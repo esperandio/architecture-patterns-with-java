@@ -13,5 +13,17 @@ public class AllocateTest {
         batch.allocate(orderLine);
 
         assertEquals(18, batch.getAvailableQuantity());
+        assertEquals(2, batch.getAllocatedQuantity());
+    }
+
+    @Test
+    void cannotAllocateIfAvailableSmallerThanRequired() {
+        Batch batch = new Batch("batch001", "BLUE-CUSHION", 1);
+        OrderLine orderLine = new OrderLine("BLUE-CUSHION", 2);
+
+        batch.allocate(orderLine);
+
+        assertEquals(1, batch.getAvailableQuantity());
+        assertEquals(0, batch.getAllocatedQuantity());
     }
 }

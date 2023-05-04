@@ -28,6 +28,10 @@ public class Batch {
     }
 
     public void allocate(OrderLine orderLine) {
+        if (orderLine.getQuantity() > this.getAvailableQuantity()) {
+            return;
+        }
+
         this.orderLines.add(orderLine);
     }
 
