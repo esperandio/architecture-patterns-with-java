@@ -1,12 +1,18 @@
 package com.example;
 
 public class OrderLine {
+    private String orderId;
     private String sku;
     private int quantity;
 
-    public OrderLine(String sku, int quantity) {
+    public OrderLine(String orderId, String sku, int quantity) {
+        this.orderId = orderId;
         this.sku = sku;
         this.quantity = quantity;
+    }
+
+    public String getOrderId() {
+        return this.orderId;
     }
 
     public String getSku() {
@@ -25,7 +31,8 @@ public class OrderLine {
             return false;
         }
 
-        return orderLine.quantity == this.quantity
+        return orderLine.orderId == this.orderId
+            && orderLine.quantity == this.quantity
             && orderLine.sku == this.sku;
     }
 }
