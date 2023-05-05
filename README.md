@@ -7,3 +7,4 @@
 - The Java Library Plugin (https://docs.gradle.org/current/userguide/java_library_plugin.html)
 - Avoid Check for Null Statement in Java (https://www.baeldung.com/java-avoid-null-check)
 - Guide To Java 8 Optional (https://www.baeldung.com/java-optional)
+- Local Variable Type Inference (https://openjdk.org/projects/amber/guides/lvti-faq)

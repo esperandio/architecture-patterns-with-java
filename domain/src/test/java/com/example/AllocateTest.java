@@ -63,4 +63,36 @@ public class AllocateTest {
         assertEquals(90, inStockBatch.getAvailableQuantity());
         assertEquals(100, shipmentBatch.getAvailableQuantity());
     }
+
+    @Test
+    void prefersEarlierBatches() {
+        var earliest = new Batch(
+            "speedy-batch", 
+            "MINIMALIST-SPOON", 
+            100,
+            Optional.of(LocalDate.now())
+        );
+
+        var medium = new Batch(
+            "normal-batch", 
+            "MINIMALIST-SPOON", 
+            100,
+            Optional.of(LocalDate.now().plusDays(1))
+        );
+
+        var latest = new Batch(
+            "slow-batch", 
+            "MINIMALIST-SPOON", 
+            100,
+            Optional.of(LocalDate.now().plusDays(2))
+        );
+
+        var orderLine = new OrderLine("order-001", "MINIMALIST-SPOON", 10);
+
+        allocate(orderLine, Arrays.asList(latest, medium, earliest));
+
+        assertEquals(90, earliest.getAvailableQuantity());
+        assertEquals(100, medium.getAvailableQuantity());
+        assertEquals(100, latest.getAvailableQuantity());
+    }
 }
