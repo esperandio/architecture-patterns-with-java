@@ -1,17 +1,25 @@
 package com.example;
 
 import java.util.ArrayList;
+import java.util.Optional;
+import java.time.LocalDate;
 
 public class Batch {
     private String reference;
     private String sku;
     private int purchasedQuantity;
+    private Optional<LocalDate> eta;
     private ArrayList<OrderLine> orderLines;
 
     public Batch(String reference, String sku, int purchasedQuantity) {
+        this(reference, sku, purchasedQuantity, Optional.empty());
+    }
+
+    public Batch(String reference, String sku, int purchasedQuantity, Optional<LocalDate> eta) {
         this.reference = reference;
         this.sku = sku;
         this.purchasedQuantity = purchasedQuantity;
+        this.eta = eta;
         this.orderLines = new ArrayList<OrderLine>();
     }
 
@@ -25,6 +33,10 @@ public class Batch {
 
     public int getPurchasedQuantity() {
         return this.purchasedQuantity;
+    }
+
+    public Optional<LocalDate> getEta() {
+        return this.eta;
     }
 
     public int getAllocatedQuantity() {
