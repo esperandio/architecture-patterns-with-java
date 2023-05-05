@@ -27,27 +27,35 @@ public class Batch {
         return this.purchasedQuantity;
     }
 
-    private boolean hasOrderLine(OrderLine orderLine) {
-        return this.orderLines.stream().filter((x) -> x.equals(orderLine)).count() > 0;
-    }
-
-    public void allocate(OrderLine orderLine) {
-        if (orderLine.getQuantity() > this.getAvailableQuantity()) {
-            return;
-        }
-
-        if (this.hasOrderLine(orderLine)) {
-            return;
-        }
-
-        this.orderLines.add(orderLine);
-    }
-
     public int getAllocatedQuantity() {
         return this.orderLines.stream().mapToInt((x) -> x.getQuantity()).sum();
     }
 
     public int getAvailableQuantity() {
         return this.purchasedQuantity - this.getAllocatedQuantity();
+    }
+
+    public boolean canAllocate(OrderLine orderLine) {
+        if (
+            orderLine.getQuantity() > this.getAvailableQuantity()
+            || this.hasOrderLine(orderLine)
+        ) {
+            return false;
+        }
+
+        return true;
+
+    }
+
+    private boolean hasOrderLine(OrderLine orderLine) {
+        return this.orderLines.stream().filter((x) -> x.equals(orderLine)).count() > 0;
+    }
+
+    public void allocate(OrderLine orderLine) {
+        if (!this.canAllocate(orderLine)) {
+            return;
+        }
+
+        this.orderLines.add(orderLine);
     }
 }
