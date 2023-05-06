@@ -67,7 +67,7 @@ public class AllocateTest {
             Optional.of(LocalDate.now().plusDays(2))
         );
 
-        var orderLine = new OrderLine("order001", "BLUE-CUSHION", 10);
+        var orderLine = new OrderLine("order001", "RETRO-CLOCK", 10);
 
         allocate(orderLine, Arrays.asList(shipmentBatch, inStockBatch));
 
