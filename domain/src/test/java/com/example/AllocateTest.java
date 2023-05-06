@@ -47,6 +47,17 @@ public class AllocateTest {
     }
 
     @Test
+    void cannotAllocateIfSkuDoNotMatch() {
+        var batch = new Batch("batch001", "UNCOMFORTABLE-CHAIR", 100);
+        var orderLine = new OrderLine("order001", "EXPENSIVE-TOASTER", 2);
+
+        batch.allocate(orderLine);
+
+        assertEquals(100, batch.getAvailableQuantity());
+        assertEquals(0, batch.getAllocatedQuantity());
+    }
+
+    @Test
     void prefersCurrentStockBatchesToShipment() {
         var inStockBatch = new Batch("in-stock-batch", "RETRO-CLOCK", 100);
         var shipmentBatch = new Batch(

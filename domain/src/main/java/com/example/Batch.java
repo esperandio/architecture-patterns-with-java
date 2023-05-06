@@ -51,6 +51,7 @@ public class Batch {
         if (
             orderLine.getQuantity() > this.getAvailableQuantity()
             || this.hasOrderLine(orderLine)
+            || orderLine.getSku() != this.sku
         ) {
             return false;
         }
