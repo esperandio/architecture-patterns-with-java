@@ -12,8 +12,8 @@ import static com.example.AllocationService.allocate;
 public class AllocateTest {
     @Test
     void availableQuantityIsReducedWhenOrderLineIsAllocated() {
-        Batch batch = new Batch("batch001", "SMALL-TABLE", 20);
-        OrderLine orderLine = new OrderLine("order001", "SMALL-TABLE", 2);
+        var batch = new Batch("batch001", "SMALL-TABLE", 20);
+        var orderLine = new OrderLine("order001", "SMALL-TABLE", 2);
 
         batch.allocate(orderLine);
 
@@ -23,8 +23,8 @@ public class AllocateTest {
 
     @Test
     void cannotAllocateIfAvailableSmallerThanRequired() {
-        Batch batch = new Batch("batch001", "BLUE-CUSHION", 1);
-        OrderLine orderLine = new OrderLine("order001", "BLUE-CUSHION", 2);
+        var batch = new Batch("batch001", "BLUE-CUSHION", 1);
+        var orderLine = new OrderLine("order001", "BLUE-CUSHION", 2);
 
         batch.allocate(orderLine);
 
@@ -34,10 +34,10 @@ public class AllocateTest {
 
     @Test
     void cannotAllocateTheSameOrderLineTwice() {
-        Batch batch = new Batch("batch001", "BLUE-VASE", 10);
+        var batch = new Batch("batch001", "BLUE-VASE", 10);
 
-        OrderLine orderLine1 = new OrderLine("order001", "BLUE-VASE", 2);
-        OrderLine orderLine2 = new OrderLine("order001", "BLUE-VASE", 2);
+        var orderLine1 = new OrderLine("order001", "BLUE-VASE", 2);
+        var orderLine2 = new OrderLine("order001", "BLUE-VASE", 2);
 
         batch.allocate(orderLine1);
         batch.allocate(orderLine2);
@@ -48,15 +48,15 @@ public class AllocateTest {
 
     @Test
     void prefersCurrentStockBatchesToShipment() {
-        Batch inStockBatch = new Batch("in-stock-batch", "RETRO-CLOCK", 100);
-        Batch shipmentBatch = new Batch(
+        var inStockBatch = new Batch("in-stock-batch", "RETRO-CLOCK", 100);
+        var shipmentBatch = new Batch(
             "shipment-batch", 
             "RETRO-CLOCK", 
             100, 
             Optional.of(LocalDate.now().plusDays(2))
         );
 
-        OrderLine orderLine = new OrderLine("order001", "BLUE-CUSHION", 10);
+        var orderLine = new OrderLine("order001", "BLUE-CUSHION", 10);
 
         allocate(orderLine, Arrays.asList(shipmentBatch, inStockBatch));
 
