@@ -9,5 +9,5 @@
 - Avoid Check for Null Statement in Java (https://www.baeldung.com/java-avoid-null-check)
 - Guide To Java 8 Optional (https://www.baeldung.com/java-optional)
 - Local Variable Type Inference (https://openjdk.org/projects/amber/guides/lvti-faq)
-
-- https://www.baeldung.com/spring-persisting-ddd-aggregates
+- Domain-centric vs data-centric approaches to software development (https://enterprisecraftsmanship.com/posts/domain-centric-vs-data-centric-approaches/)
+- Misconceptions About Domain-Centric Architectures (https://betterprogramming.pub/misconceptions-about-domain-centric-architectures-c16bf1c31371)
