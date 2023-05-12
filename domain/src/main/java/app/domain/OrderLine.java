@@ -1,4 +1,4 @@
-package com.example;
+package app.domain;
 
 public class OrderLine {
     private String orderId;

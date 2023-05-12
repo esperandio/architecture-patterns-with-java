@@ -1,4 +1,4 @@
-package com.example;
+package app.domain;
 
 import java.time.LocalDate;
 import java.util.List;

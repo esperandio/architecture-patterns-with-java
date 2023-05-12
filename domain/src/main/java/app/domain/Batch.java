@@ -1,4 +1,4 @@
-package com.example;
+package app.domain;
 
 import java.util.ArrayList;
 import java.util.Optional;
