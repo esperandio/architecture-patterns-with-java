@@ -3,9 +3,14 @@
 
 # Ignore Gradle build output directory
 build
+bin
 
 # Ignore Java bytecode
 *.class
 
 # Visual studio code launch settings
 .vscode/
+
+# Docker database volume
+docker/db/data/*
+!docker/db/data/*.gitkeep
