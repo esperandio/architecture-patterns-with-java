@@ -11,6 +11,10 @@
         <property name="connection.username">root</property>
         <property name="connection.password">my-secret-pw</property>
 
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+
         <mapping resource="Batch.hbm.xml" />
+        <mapping resource="OrderLine.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

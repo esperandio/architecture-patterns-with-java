@@ -1,7 +1,6 @@
 package app.domain;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 import java.time.LocalDate;
 
 public class Batch {
@@ -9,7 +8,7 @@ public class Batch {
     private String sku;
     private int purchasedQuantity;
     private Optional<LocalDate> eta;
-    private ArrayList<OrderLine> orderLines;
+    private List<OrderLine> orderLines;
 
     protected Batch() {}
 

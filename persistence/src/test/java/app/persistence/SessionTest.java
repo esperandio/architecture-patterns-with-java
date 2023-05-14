@@ -4,8 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -56,5 +55,26 @@ public class SessionTest {
 
         assertEquals(3, actual.size());
         assertIterableEquals(expected, actual);
+    }
+
+    @Test
+    void TestCanRetrieveSpecificBatch() {
+        this.session.beginTransaction();
+
+        this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
+            connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-001','SMALL-TABLE', 5)").executeUpdate();
+            connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-002','SMALL-TABLE', 5)").executeUpdate();
+        });
+
+        this.session.getTransaction().commit();
+
+        Optional<Batch> batch = this.session.createQuery("FROM Batch", Batch.class)
+            .list()
+            .stream()
+            .findFirst();
+
+        assertTrue(batch.isPresent());
+        assertEquals(10, batch.get().getAllocatedQuantity());
     }
 }

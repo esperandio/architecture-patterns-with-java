@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+    <class name="app.domain.OrderLine" table="OrderLines">
+        <composite-id>
+            <key-property name="orderId" column="OrderId" type="string" access="field" />
+            <key-property name="sku" column="Sku" type="string" access="field" />
+            <key-property name="quantity" column="Quantity" type="int" access="field" />
+        </composite-id>
+    </class>
+</hibernate-mapping>

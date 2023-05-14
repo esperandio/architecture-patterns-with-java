@@ -1,12 +1,17 @@
-<?xml version = "1.0" encoding = "utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC 
 "-//Hibernate/Hibernate Mapping DTD//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
 <hibernate-mapping>
     <class name="app.domain.Batch" table="Batches">
-        <id name="reference" column="Reference" type = "string" access="field"/>
-        <property name = "sku" column = "Sku" type = "string" access="field"/>
-        <property name = "purchasedQuantity" column = "PurchasedQuantity" type = "int" access="field"/>
+        <id name="reference" column="Reference" type="string" access="field"/>
+        <property name="sku" column="Sku" type="string" access="field"/>
+        <property name="purchasedQuantity" column="PurchasedQuantity" type="int" access="field"/>
+
+        <bag name="orderLines" cascade="all" nullable="false" access="field">
+            <key column="BatchReference"/>
+            <one-to-many class="app.domain.OrderLine"/>
+        </bag>
     </class>
 </hibernate-mapping>
