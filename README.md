@@ -2,6 +2,7 @@
 
 - Architecture Patterns with Python (https://www.oreilly.com/library/view/architecture-patterns-with/9781492052197/)
 - esperandio/architecture-patterns-with-dotnet (https://github.com/esperandio/architecture-patterns-with-dotnet)
+- citerus/dddsample-core (https://github.com/citerus/dddsample-core)
 - VaughnVernon/IDDD_Samples (https://github.com/VaughnVernon/IDDD_Samples)
 - Differences Between Oracle JDK and OpenJDK (https://www.baeldung.com/oracle-jdk-vs-openjdk)
 - Structuring and Building a Software Component with Gradle (https://docs.gradle.org/8.1.1/userguide/multi_project_builds.html)
