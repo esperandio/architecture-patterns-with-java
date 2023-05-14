@@ -31,8 +31,8 @@ public class OrderLine {
             return false;
         }
 
-        return orderLine.orderId == this.orderId
+        return orderLine.orderId.equals(this.orderId)
             && orderLine.quantity == this.quantity
-            && orderLine.sku == this.sku;
+            && orderLine.sku.equals(this.sku);
     }
 }
