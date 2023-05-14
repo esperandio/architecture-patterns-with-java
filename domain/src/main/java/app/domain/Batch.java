@@ -11,6 +11,8 @@ public class Batch {
     private Optional<LocalDate> eta;
     private ArrayList<OrderLine> orderLines;
 
+    protected Batch() {}
+
     public Batch(String reference, String sku, int purchasedQuantity) {
         this(reference, sku, purchasedQuantity, Optional.empty());
     }
