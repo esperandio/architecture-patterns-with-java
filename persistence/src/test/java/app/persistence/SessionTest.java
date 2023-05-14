@@ -19,9 +19,7 @@ public class SessionTest {
     public SessionTest() {
         var configuration = new Configuration();
 
-        configuration.configure("hibernate.cfg.xml");        
-        configuration.addAnnotatedClass(Batch.class);
-        configuration.addResource("Batch.hbm.xml");
+        configuration.configure("hibernate.cfg.xml");
 
         // Create Session Factory
         SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -33,13 +31,12 @@ public class SessionTest {
     @BeforeEach
     public void initEach() {
         this.session.doWork(connection -> {
-            connection.prepareStatement("TRUNCATE TABLE Batches").executeUpdate();
+            connection.prepareStatement("DELETE FROM Batches").executeUpdate();
         });
     }
 
     @Test
-    void testCanRetrieveBatches()
-    {
+    void testCanRetrieveBatches() {
         this.session.beginTransaction();
 
         this.session.doWork(connection -> {

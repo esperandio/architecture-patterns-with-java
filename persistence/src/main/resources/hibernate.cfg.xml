@@ -10,5 +10,7 @@
         <property name="connection.url">jdbc:mysql://db/test?serverTimezone=UTC</property>
         <property name="connection.username">root</property>
         <property name="connection.password">my-secret-pw</property>
+
+        <mapping resource="Batch.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
