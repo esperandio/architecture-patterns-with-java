@@ -77,4 +77,21 @@ public class SessionTest {
         assertTrue(batch.isPresent());
         assertEquals(10, batch.get().getAllocatedQuantity());
     }
+
+    @Test
+    void testCanPersistNewBatch() {
+        var batch = new Batch("batch001", "BLUE-VASE", 10);
+
+        batch.allocate(new OrderLine("order-001", "BLUE-VASE", 2));
+        batch.allocate(new OrderLine("order-002", "BLUE-VASE", 2));
+
+        this.session.beginTransaction();
+        this.session.persist(batch);
+        this.session.getTransaction().commit();
+
+        List<Batch> batches = this.session.createQuery("FROM Batch", Batch.class).list();
+
+        assertEquals(1, batches.size());
+        assertEquals(4, batches.get(0).getAllocatedQuantity());
+    }
 }
