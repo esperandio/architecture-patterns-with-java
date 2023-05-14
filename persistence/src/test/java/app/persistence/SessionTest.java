@@ -94,4 +94,23 @@ public class SessionTest {
         assertEquals(1, batches.size());
         assertEquals(4, batches.get(0).getAllocatedQuantity());
     }
+
+    @Test
+    void testCanModifyAnExistingBatchAndPersist1() {
+        this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
+            connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-001','SMALL-TABLE', 5)").executeUpdate();
+            connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-002','SMALL-TABLE', 5)").executeUpdate();
+        });
+
+        var batch = this.session.get(Batch.class, "batch-001");
+
+        batch.allocate(new OrderLine("order-003", "SMALL-TABLE", 8));
+
+        this.session.beginTransaction();
+        this.session.persist(batch);
+        this.session.getTransaction().commit();
+
+        assertEquals(18, this.session.get(Batch.class, "batch-001").getAllocatedQuantity());
+    }
 }
