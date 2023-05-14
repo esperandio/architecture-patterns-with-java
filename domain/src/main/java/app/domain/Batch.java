@@ -71,4 +71,15 @@ public class Batch {
 
         this.orderLines.add(orderLine);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        Batch batch = (Batch) o;
+
+        if (batch == null) {
+            return false;
+        }
+
+        return batch.reference.equals(this.reference);
+    }
 }
