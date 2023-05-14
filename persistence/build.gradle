@@ -9,6 +9,7 @@ repositories {
 dependencies {
     implementation 'org.hibernate.orm:hibernate-core:6.2.2.Final'
     implementation 'mysql:mysql-connector-java:8.0.33'
+    implementation project(':domain')
     testImplementation(platform('org.junit:junit-bom:5.9.3'))
     testImplementation('org.junit.jupiter:junit-jupiter')
 }
