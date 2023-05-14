@@ -5,6 +5,8 @@ public class OrderLine {
     private String sku;
     private int quantity;
 
+    protected OrderLine() {}
+
     public OrderLine(String orderId, String sku, int quantity) {
         this.orderId = orderId;
         this.sku = sku;
