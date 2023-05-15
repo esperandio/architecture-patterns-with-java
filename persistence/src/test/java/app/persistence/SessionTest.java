@@ -69,13 +69,7 @@ public class SessionTest {
 
         this.session.getTransaction().commit();
 
-        Optional<Batch> batch = this.session.createQuery("FROM Batch", Batch.class)
-            .list()
-            .stream()
-            .findFirst();
-
-        assertTrue(batch.isPresent());
-        assertEquals(10, batch.get().getAllocatedQuantity());
+        assertEquals(10, this.session.get(Batch.class, "batch-001").getAllocatedQuantity());
     }
 
     @Test
