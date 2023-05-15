@@ -17,11 +17,15 @@ public class Batch {
     }
 
     public Batch(String reference, String sku, int purchasedQuantity, Optional<LocalDate> eta) {
+        this(reference, sku, purchasedQuantity, eta, new ArrayList<OrderLine>());
+    }
+
+    public Batch(String reference, String sku, int purchasedQuantity, Optional<LocalDate> eta, List<OrderLine> orderLines) {
         this.reference = reference;
         this.sku = sku;
         this.purchasedQuantity = purchasedQuantity;
         this.eta = eta;
-        this.orderLines = new ArrayList<OrderLine>();
+        this.orderLines = orderLines;
     }
 
     public String getReference() {
