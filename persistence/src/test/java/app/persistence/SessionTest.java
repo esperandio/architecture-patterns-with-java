@@ -35,7 +35,7 @@ public class SessionTest {
     }
 
     @Test
-    void testCanRetrieveBatches() {
+    void canRetrieveBatches() {
         this.session.beginTransaction();
 
         this.session.doWork(connection -> {
@@ -58,7 +58,7 @@ public class SessionTest {
     }
 
     @Test
-    void TestCanRetrieveSpecificBatch() {
+    void canRetrieveSpecificBatch() {
         this.session.beginTransaction();
 
         this.session.doWork(connection -> {
@@ -79,7 +79,7 @@ public class SessionTest {
     }
 
     @Test
-    void testCanPersistNewBatch() {
+    void canPersistNewBatch() {
         var batch = new Batch("batch001", "BLUE-VASE", 10);
 
         batch.allocate(new OrderLine("order-001", "BLUE-VASE", 2));
@@ -96,7 +96,7 @@ public class SessionTest {
     }
 
     @Test
-    void testCanModifyAnExistingBatchAndPersist1() {
+    void canModifyAnExistingBatchAndPersist1() {
         this.session.doWork(connection -> {
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-001','SMALL-TABLE', 5)").executeUpdate();
@@ -112,5 +112,24 @@ public class SessionTest {
         this.session.getTransaction().commit();
 
         assertEquals(18, this.session.get(Batch.class, "batch-001").getAllocatedQuantity());
+    }
+
+    @Test
+    void canModifyAnExistingBatchAndPersist2() {
+        this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
+            connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-001','SMALL-TABLE', 5)").executeUpdate();
+            connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-002','SMALL-TABLE', 5)").executeUpdate();
+        });
+
+        var batch = this.session.get(Batch.class, "batch-001");
+
+        batch.deallocate(new OrderLine("order-001", "SMALL-TABLE", 5));
+
+        this.session.beginTransaction();
+        this.session.persist(batch);
+        this.session.getTransaction().commit();
+
+        assertEquals(5, this.session.get(Batch.class, "batch-001").getAllocatedQuantity());
     }
 }
