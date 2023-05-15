@@ -9,7 +9,7 @@
         <property name="sku" column="Sku" type="string" access="field"/>
         <property name="purchasedQuantity" column="PurchasedQuantity" type="int" access="field"/>
 
-        <bag name="orderLines" cascade="all" nullable="false" access="field">
+        <bag name="orderLines" cascade="all-delete-orphan" nullable="false" access="field">
             <key column="BatchReference"/>
             <one-to-many class="app.domain.OrderLine"/>
         </bag>
