@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.*;
 
 import static app.domain.AllocationService.allocate;
 
@@ -105,5 +104,23 @@ public class AllocateTest {
         assertEquals(90, earliest.getAvailableQuantity());
         assertEquals(100, medium.getAvailableQuantity());
         assertEquals(100, latest.getAvailableQuantity());
+    }
+
+    @Test
+    void availableQuantityIsIncreasedWhenOrderLineIsDeallocated() {
+        var orderLine = new OrderLine("order-001", "SMALL-TABLE", 2);
+        var batch = new Batch(
+            "batch-001", 
+            "SMALL-TABLE", 
+            20, 
+            Optional.empty(), 
+            new ArrayList<OrderLine>(Arrays.asList(orderLine))
+        );
+
+        assertEquals(18, batch.getAvailableQuantity());
+
+        batch.deallocate(orderLine);
+
+        assertEquals(20, batch.getAvailableQuantity());
     }
 }

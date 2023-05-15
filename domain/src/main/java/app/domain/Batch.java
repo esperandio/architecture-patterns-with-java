@@ -62,7 +62,6 @@ public class Batch {
         }
 
         return true;
-
     }
 
     private boolean hasOrderLine(OrderLine orderLine) {
@@ -75,6 +74,14 @@ public class Batch {
         }
 
         this.orderLines.add(orderLine);
+    }
+
+    public void deallocate(OrderLine orderLine) {
+        if (!this.hasOrderLine(orderLine)) {
+            return;
+        }
+
+        this.orderLines.remove(orderLine);
     }
 
     @Override
