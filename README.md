@@ -14,3 +14,5 @@
 - Misconceptions About Domain-Centric Architectures (https://betterprogramming.pub/misconceptions-about-domain-centric-architectures-c16bf1c31371)
 - Why has javax.persistence-api been replaced by jakarta.persistence-api? (https://stackoverflow.com/questions/60021815/why-has-javax-persistence-api-been-replaced-by-jakarta-persistence-api-in-spring)
 - Building a RESTful Web Service (https://spring.io/guides/gs/rest-service/)
+- Java 14 Record Keyword (https://www.baeldung.com/java-record-keyword)
+- Testing the Web Layer (https://spring.io/guides/gs/testing-web/)
