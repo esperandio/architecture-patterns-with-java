@@ -10,6 +10,8 @@ services:
       - ./:/app
     working_dir: /app
     command: tail -f /dev/null
+    environment:
+      - GRADLE_USER_HOME=/app/.gradle
   db:
     image: mysql:8.0.29
     container_name: db
