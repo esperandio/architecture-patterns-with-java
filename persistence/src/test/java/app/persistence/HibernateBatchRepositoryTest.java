@@ -58,4 +58,38 @@ public class HibernateBatchRepositoryTest {
         assertEquals(3, actual.size());
         assertIterableEquals(expected, actual);
     }
+
+    @Test
+    void canRetrieveBatchWhenReferenceExists() {
+        this.session.beginTransaction();
+
+        this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
+        });
+
+        this.session.getTransaction().commit();
+
+        var repository = new HibernateBatchRepository(this.session);
+
+        Optional<Batch> batch = repository.get("batch-001");
+
+        assertEquals(true, batch.isPresent());
+    }
+
+    @Test
+    void cannotRetrieveBatchWhenReferenceIsInvalid() {
+        this.session.beginTransaction();
+
+        this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
+        });
+
+        this.session.getTransaction().commit();
+
+        var repository = new HibernateBatchRepository(this.session);
+
+        Optional<Batch> batch = repository.get("invalid-reference");
+
+        assertEquals(false, batch.isPresent());
+    }
 }
