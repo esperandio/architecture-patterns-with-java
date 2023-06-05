@@ -17,3 +17,14 @@
 - Building a RESTful Web Service (https://spring.io/guides/gs/rest-service/)
 - Java 14 Record Keyword (https://www.baeldung.com/java-record-keyword)
 - Testing the Web Layer (https://spring.io/guides/gs/testing-web/)
+- Hibernate
+    - https://openclassrooms.com/en/courses/6031811-persist-your-java-applications-data-with-the-repository-pattern/6270116-use-hibernate-to-persist-your-objects-in-a-database
+    - https://www.baeldung.com/spring-data-rest-relationships
+    - https://www.baeldung.com/java-connect-mysql
+    - https://www.geeksforgeeks.org/hibernate-example-using-jpa-and-mysql/
+    - https://stackoverflow.com/questions/18454058/hibernate-automatically-persist-dependant-objects
+    - https://www.tutorialspoint.com/hibernate/hibernate_mapping_files.htm
+    - https://examples.javacodegeeks.com/java-development/enterprise-java/hibernate/hibernate-mapping-example/
+    - https://www.javawebtutor.com/articles/hibernate/hibernate-composite-key.php
+    - https://www.tutorialspoint.com/hibernate/hibernate_list_mapping.htm
+    - https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/collections.html#collections-indexed
