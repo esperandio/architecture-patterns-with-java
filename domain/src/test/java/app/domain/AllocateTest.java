@@ -68,8 +68,9 @@ public class AllocateTest {
 
         var orderLine = new OrderLine("order001", "RETRO-CLOCK", 10);
 
-        allocate(orderLine, Arrays.asList(shipmentBatch, inStockBatch));
+        var batchReference = allocate(orderLine, Arrays.asList(shipmentBatch, inStockBatch));
 
+        assertEquals("in-stock-batch", batchReference);
         assertEquals(90, inStockBatch.getAvailableQuantity());
         assertEquals(100, shipmentBatch.getAvailableQuantity());
     }
@@ -99,8 +100,9 @@ public class AllocateTest {
 
         var orderLine = new OrderLine("order-001", "MINIMALIST-SPOON", 10);
 
-        allocate(orderLine, Arrays.asList(latest, medium, earliest));
+        var batchReference = allocate(orderLine, Arrays.asList(latest, medium, earliest));
 
+        assertEquals("speedy-batch", batchReference);
         assertEquals(90, earliest.getAvailableQuantity());
         assertEquals(100, medium.getAvailableQuantity());
         assertEquals(100, latest.getAvailableQuantity());
