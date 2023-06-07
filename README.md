@@ -28,3 +28,7 @@
     - https://www.javawebtutor.com/articles/hibernate/hibernate-composite-key.php
     - https://www.tutorialspoint.com/hibernate/hibernate_list_mapping.htm
     - https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/collections.html#collections-indexed
+- Dependecy Injection
+    - https://www.geeksforgeeks.org/spring-dependency-injection-with-example/
+    - https://www.geeksforgeeks.org/spring-dependency-injection-with-factory-method/
+    - https://www.digitalocean.com/community/tutorials/spring-dependency-injection
