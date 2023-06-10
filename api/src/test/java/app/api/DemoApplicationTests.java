@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringBootTest
 class DemoApplicationTests {
-	@Autowired
-	private GreetingController controller;
+    @Autowired
+    private AllocateController controller;
 
-	@Test
-	void contextLoads() {
-		assertThat(controller.greeting("teste")).asString().contains("teste");
-	}
+    @Test
+    void healthcheck() {
+        assertThat(controller.healthcheck()).asString().contains("ok");
+    }
 }
