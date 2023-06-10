@@ -7,24 +7,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import app.domain.*;
 
 public class HibernateBatchRepositoryTest {
     private Session session;
 
-    public HibernateBatchRepositoryTest() {
-        var configuration = new Configuration();
-
-        configuration.configure("hibernate.cfg.xml");
-
-        // Create Session Factory
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
- 
+    public HibernateBatchRepositoryTest() { 
         // Initialize Session Object
-        this.session = sessionFactory.openSession();
+        this.session = new HibernateSessionFactory().create();
     }
 
     @BeforeEach
