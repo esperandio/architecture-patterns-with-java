@@ -3,7 +3,7 @@ package app.domain;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static app.domain.AllocationService.allocate;
@@ -63,7 +63,7 @@ public class AllocateTest {
             "shipment-batch", 
             "RETRO-CLOCK", 
             100, 
-            Optional.of(LocalDate.now().plusDays(2))
+            Optional.of(LocalDateTime.now().plusDays(2))
         );
 
         var orderLine = new OrderLine("order001", "RETRO-CLOCK", 10);
@@ -81,21 +81,21 @@ public class AllocateTest {
             "speedy-batch", 
             "MINIMALIST-SPOON", 
             100,
-            Optional.of(LocalDate.now())
+            Optional.of(LocalDateTime.now())
         );
 
         var medium = new Batch(
             "normal-batch", 
             "MINIMALIST-SPOON", 
             100,
-            Optional.of(LocalDate.now().plusDays(1))
+            Optional.of(LocalDateTime.now().plusDays(1))
         );
 
         var latest = new Batch(
             "slow-batch", 
             "MINIMALIST-SPOON", 
             100,
-            Optional.of(LocalDate.now().plusDays(2))
+            Optional.of(LocalDateTime.now().plusDays(2))
         );
 
         var orderLine = new OrderLine("order-001", "MINIMALIST-SPOON", 10);

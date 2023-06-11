@@ -1,13 +1,13 @@
 package app.domain;
 
 import java.util.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Batch {
     private String reference;
     private String sku;
     private int purchasedQuantity;
-    private Optional<LocalDate> eta;
+    private Optional<LocalDateTime> eta;
     private List<OrderLine> orderLines;
 
     protected Batch() {}
@@ -16,11 +16,11 @@ public class Batch {
         this(reference, sku, purchasedQuantity, Optional.empty());
     }
 
-    public Batch(String reference, String sku, int purchasedQuantity, Optional<LocalDate> eta) {
+    public Batch(String reference, String sku, int purchasedQuantity, Optional<LocalDateTime> eta) {
         this(reference, sku, purchasedQuantity, eta, new ArrayList<OrderLine>());
     }
 
-    public Batch(String reference, String sku, int purchasedQuantity, Optional<LocalDate> eta, List<OrderLine> orderLines) {
+    public Batch(String reference, String sku, int purchasedQuantity, Optional<LocalDateTime> eta, List<OrderLine> orderLines) {
         this.reference = reference;
         this.sku = sku;
         this.purchasedQuantity = purchasedQuantity;
@@ -40,7 +40,7 @@ public class Batch {
         return this.purchasedQuantity;
     }
 
-    public Optional<LocalDate> getEta() {
+    public Optional<LocalDateTime> getEta() {
         return this.eta;
     }
 
