@@ -17,6 +17,7 @@
 - Building a RESTful Web Service (https://spring.io/guides/gs/rest-service/)
 - Java 14 Record Keyword (https://www.baeldung.com/java-record-keyword)
 - Testing the Web Layer (https://spring.io/guides/gs/testing-web/)
+- Dockerizing a Spring Boot Application (https://www.baeldung.com/dockerizing-spring-boot-application)
 - Hibernate
     - https://openclassrooms.com/en/courses/6031811-persist-your-java-applications-data-with-the-repository-pattern/6270116-use-hibernate-to-persist-your-objects-in-a-database
     - https://www.baeldung.com/spring-data-rest-relationships
