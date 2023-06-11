@@ -35,3 +35,6 @@
     - https://www.geeksforgeeks.org/spring-dependency-injection-with-example/
     - https://www.geeksforgeeks.org/spring-dependency-injection-with-factory-method/
     - https://www.digitalocean.com/community/tutorials/spring-dependency-injection
+- Spring
+    - https://www.baeldung.com/spring-response-entity
+    - https://www.baeldung.com/spring-request-response-body

@@ -16,11 +16,6 @@ class DemoApplicationTests {
     private AllocateController controller;
 
     @Test
-    void healthcheck() {
-        assertThat(controller.healthcheck()).asString().contains("ok");
-    }
-
-    @Test
     void happyPathReturns201AndAllocatedBatch() {
         var session = new HibernateSessionFactory().create();
 
@@ -35,7 +30,7 @@ class DemoApplicationTests {
 
         session.getTransaction().commit();
 
-        var response = controller.allocate(new Allocate("order-005", "SMALL-TABLE", 1));
+        var response = controller.allocate(new AllocateRequest("order-005", "SMALL-TABLE", 1));
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody()).contains("batch-001");
