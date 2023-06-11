@@ -6,9 +6,9 @@
 <hibernate-mapping>
     <class name="app.domain.OrderLine" table="OrderLines">
         <composite-id>
-            <key-property name="orderId" column="OrderId" type="string" access="field" />
-            <key-property name="sku" column="Sku" type="string" access="field" />
-            <key-property name="quantity" column="Quantity" type="int" access="field" />
+            <key-property name="orderId" column="OrderId" access="field" />
+            <key-property name="sku" column="Sku" access="field" />
+            <key-property name="quantity" column="Quantity" access="field" />
         </composite-id>
     </class>
 </hibernate-mapping>

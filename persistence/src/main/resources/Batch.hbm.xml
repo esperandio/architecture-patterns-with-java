@@ -5,9 +5,10 @@
 
 <hibernate-mapping>
     <class name="app.domain.Batch" table="Batches">
-        <id name="reference" column="Reference" type="string" access="field"/>
-        <property name="sku" column="Sku" type="string" access="field"/>
-        <property name="purchasedQuantity" column="PurchasedQuantity" type="int" access="field"/>
+        <id name="reference" column="Reference" access="field"/>
+        <property name="sku" column="Sku" access="field"/>
+        <property name="purchasedQuantity" column="PurchasedQuantity" access="field"/>
+        <property name="eta" column="Eta" access="field"/>
 
         <bag name="orderLines" cascade="all-delete-orphan" nullable="false" access="field">
             <key column="BatchReference"/>

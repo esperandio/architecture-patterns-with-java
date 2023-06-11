@@ -7,20 +7,20 @@ public class Batch {
     private String reference;
     private String sku;
     private int purchasedQuantity;
-    private Optional<LocalDateTime> eta;
+    private LocalDateTime eta;
     private List<OrderLine> orderLines;
 
     protected Batch() {}
 
     public Batch(String reference, String sku, int purchasedQuantity) {
-        this(reference, sku, purchasedQuantity, Optional.empty());
+        this(reference, sku, purchasedQuantity, null);
     }
 
-    public Batch(String reference, String sku, int purchasedQuantity, Optional<LocalDateTime> eta) {
+    public Batch(String reference, String sku, int purchasedQuantity, LocalDateTime eta) {
         this(reference, sku, purchasedQuantity, eta, new ArrayList<OrderLine>());
     }
 
-    public Batch(String reference, String sku, int purchasedQuantity, Optional<LocalDateTime> eta, List<OrderLine> orderLines) {
+    public Batch(String reference, String sku, int purchasedQuantity, LocalDateTime eta, List<OrderLine> orderLines) {
         this.reference = reference;
         this.sku = sku;
         this.purchasedQuantity = purchasedQuantity;
@@ -41,7 +41,7 @@ public class Batch {
     }
 
     public Optional<LocalDateTime> getEta() {
-        return this.eta;
+        return Optional.ofNullable(this.eta);
     }
 
     public int getAllocatedQuantity() {

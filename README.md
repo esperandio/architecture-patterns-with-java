@@ -28,6 +28,9 @@
     - https://www.javawebtutor.com/articles/hibernate/hibernate-composite-key.php
     - https://www.tutorialspoint.com/hibernate/hibernate_list_mapping.htm
     - https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/collections.html#collections-indexed
+    - https://thorben-janssen.com/hibernate-5-date-and-time/
+    - https://www.baeldung.com/hibernate-custom-types
+    - https://github.com/eugenp/tutorials/blob/master/persistence-modules/hibernate-annotations/src/main/java/com/baeldung/hibernate/customtypes/SalaryType.java
 - Dependecy Injection
     - https://www.geeksforgeeks.org/spring-dependency-injection-with-example/
     - https://www.geeksforgeeks.org/spring-dependency-injection-with-factory-method/

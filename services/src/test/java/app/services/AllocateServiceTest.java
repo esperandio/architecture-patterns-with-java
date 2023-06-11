@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Optional;
 
 import app.domain.Batch;
 
@@ -16,21 +15,21 @@ public class AllocateServiceTest {
             "speedy-batch", 
             "MINIMALIST-SPOON", 
             100,
-            Optional.of(LocalDateTime.now())
+            LocalDateTime.now()
         );
 
         var medium = new Batch(
             "normal-batch", 
             "MINIMALIST-SPOON", 
             100,
-            Optional.of(LocalDateTime.now().plusDays(1))
+            LocalDateTime.now().plusDays(1)
         );
 
         var latest = new Batch(
             "slow-batch", 
             "MINIMALIST-SPOON", 
             100,
-            Optional.of(LocalDateTime.now().plusDays(2))
+            LocalDateTime.now().plusDays(2)
         );
         
         var repository = new InMemoryBatchRepository(Arrays.asList(latest, medium, earliest));

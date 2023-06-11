@@ -63,7 +63,7 @@ public class AllocateTest {
             "shipment-batch", 
             "RETRO-CLOCK", 
             100, 
-            Optional.of(LocalDateTime.now().plusDays(2))
+            LocalDateTime.now().plusDays(2)
         );
 
         var orderLine = new OrderLine("order001", "RETRO-CLOCK", 10);
@@ -81,21 +81,21 @@ public class AllocateTest {
             "speedy-batch", 
             "MINIMALIST-SPOON", 
             100,
-            Optional.of(LocalDateTime.now())
+            LocalDateTime.now()
         );
 
         var medium = new Batch(
             "normal-batch", 
             "MINIMALIST-SPOON", 
             100,
-            Optional.of(LocalDateTime.now().plusDays(1))
+            LocalDateTime.now().plusDays(1)
         );
 
         var latest = new Batch(
             "slow-batch", 
             "MINIMALIST-SPOON", 
             100,
-            Optional.of(LocalDateTime.now().plusDays(2))
+            LocalDateTime.now().plusDays(2)
         );
 
         var orderLine = new OrderLine("order-001", "MINIMALIST-SPOON", 10);
@@ -115,7 +115,7 @@ public class AllocateTest {
             "batch-001", 
             "SMALL-TABLE", 
             20, 
-            Optional.empty(), 
+            LocalDateTime.now(), 
             new ArrayList<OrderLine>(Arrays.asList(orderLine))
         );
 
