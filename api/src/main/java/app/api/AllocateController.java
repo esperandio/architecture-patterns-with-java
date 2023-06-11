@@ -1,5 +1,7 @@
 package app.api;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +22,7 @@ public class AllocateController {
     }
 
     @PostMapping("allocate")
-    public Allocate allocate(@RequestBody Allocate allocate) {
+    public ResponseEntity<String> allocate(@RequestBody Allocate allocate) {
         var session = new HibernateSessionFactory().create();
 
         var repository = new HibernateBatchRepository(session);
@@ -28,10 +30,14 @@ public class AllocateController {
 
         session.beginTransaction();
 
-        service.perform(allocate.orderId(), allocate.sku(), allocate.qtd());
+        String batchReference = service.perform(allocate.orderId(), allocate.sku(), allocate.qtd());
 
         session.getTransaction().commit();
 
-        return allocate;
+        if (batchReference.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(batchReference, HttpStatus.CREATED);
     }
 }
