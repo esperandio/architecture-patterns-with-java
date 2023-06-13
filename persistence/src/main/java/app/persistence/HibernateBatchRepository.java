@@ -30,4 +30,9 @@ public class HibernateBatchRepository implements BatchRepository {
 
         return Optional.of(batch);
     }
+
+    @Override
+    public void add(Batch batch) {
+        this.session.persist(batch);
+    }
 }

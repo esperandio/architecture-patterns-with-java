@@ -83,4 +83,19 @@ public class HibernateBatchRepositoryTest {
 
         assertEquals(false, batch.isPresent());
     }
+
+    @Test
+    void canPersistNewBatch() {
+        var repository = new HibernateBatchRepository(this.session);
+
+        this.session.beginTransaction();
+
+        repository.add(new Batch("batch-001", "SMALL-TABLE", 20));
+
+        this.session.getTransaction().commit();
+
+        Optional<Batch> batch = repository.get("batch-001");
+
+        assertEquals(true, batch.isPresent());
+    }
 }

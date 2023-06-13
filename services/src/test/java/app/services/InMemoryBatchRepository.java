@@ -28,5 +28,10 @@ public class InMemoryBatchRepository implements BatchRepository {
         return batches.stream()
             .filter(x -> x.getReference() == reference)
             .findFirst();
+    }
+
+    @Override
+    public void add(Batch batch) {
+        this.batches.add(batch);
     }    
 }
