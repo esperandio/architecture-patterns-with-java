@@ -4,36 +4,23 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-
-import app.domain.Batch;
 
 public class AllocateServiceTest {
+    private InMemoryUnitOfWork unitOfWork;
+    private AddBatchService addBatchService;
+
+    public AllocateServiceTest() {
+        this.unitOfWork = new InMemoryUnitOfWork();
+        this.addBatchService = new AddBatchService(this.unitOfWork);
+    }
+
     @Test
     void allocateReturnsReference() {
-        var earliest = new Batch(
-            "speedy-batch", 
-            "MINIMALIST-SPOON", 
-            100,
-            LocalDateTime.now()
-        );
-
-        var medium = new Batch(
-            "normal-batch", 
-            "MINIMALIST-SPOON", 
-            100,
-            LocalDateTime.now().plusDays(1)
-        );
-
-        var latest = new Batch(
-            "slow-batch", 
-            "MINIMALIST-SPOON", 
-            100,
-            LocalDateTime.now().plusDays(2)
-        );
+        this.addBatchService.perform("speedy-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now());
+        this.addBatchService.perform("normal-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now().plusDays(1));
+        this.addBatchService.perform("slow-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now().plusDays(2));
         
-        var repository = new InMemoryBatchRepository(Arrays.asList(latest, medium, earliest));
-        var service = new AllocateService(repository);
+        var service = new AllocateService(this.unitOfWork);
 
         var batchReference = service.perform("order001", "MINIMALIST-SPOON", 10);
 
@@ -42,8 +29,7 @@ public class AllocateServiceTest {
 
     @Test
     void allocateReturnsEmptyStringWhenUnableToAllocateOrderLine() {
-        var repository = new InMemoryBatchRepository();
-        var service = new AllocateService(repository);
+        var service = new AllocateService(this.unitOfWork);
 
         var batchReference = service.perform("order001", "MINIMALIST-SPOON", 10);
 

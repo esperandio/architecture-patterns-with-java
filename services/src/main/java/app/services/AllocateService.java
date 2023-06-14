@@ -6,18 +6,20 @@ import app.domain.*;
 import static app.domain.AllocationService.allocate;
 
 public class AllocateService {
-    private BatchRepository repository;
+    private UnitOfWork unitOfWork;
 
-    public AllocateService(BatchRepository repository) {
-        this.repository = repository;
+    public AllocateService(UnitOfWork unitOfWork) {
+        this.unitOfWork = unitOfWork;
     }
 
     public String perform(String orderId, String sku, int quantity) {
-        List<Batch> batches = this.repository.list();
+        List<Batch> batches = this.unitOfWork.batches().list();
 
         var orderLine = new OrderLine(orderId, sku, quantity);
 
         String batchReference = allocate(orderLine, batches);
+
+        this.unitOfWork.commit();
 
         return batchReference;
     }
