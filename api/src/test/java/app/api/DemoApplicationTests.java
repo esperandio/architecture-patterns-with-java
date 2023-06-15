@@ -2,37 +2,38 @@ package app.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDateTime;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-
-import app.persistence.HibernateSessionFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringBootTest
 class DemoApplicationTests {
     @Autowired
-    private AllocateController controller;
+    private AllocateController allocateController;
+
+    @Autowired
+    private AddBatchController addBatchController;
 
     @Test
     void happyPathReturns201AndAllocatedBatch() {
-        var session = new HibernateSessionFactory().create();
+        String sku = RandomStringUtils.random(10, true, false);
 
-        session.beginTransaction();
+        String earliestBatchReference = RandomStringUtils.random(5, true, true);
+        String mediumBatchReference = RandomStringUtils.random(5, true, true);
+        String latestBatchReference = RandomStringUtils.random(5, true, true);
 
-        session.doWork(connection -> {
-            connection.prepareStatement("DELETE FROM Batches").executeUpdate();
-            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
-            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity, Eta) VALUES ('batch-002', 'SMALL-TABLE', 20, '2023-07-11 11:13:14')").executeUpdate();
-            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity, Eta) VALUES ('batch-003', 'SMALL-TABLE', 20, '2023-09-11 12:13:14')").executeUpdate();
-        });
+        addBatchController.addBatch(new AddBatchRequest(earliestBatchReference, sku, 10, null));
+        addBatchController.addBatch(new AddBatchRequest(mediumBatchReference, sku, 10, LocalDateTime.now().plusDays(1)));
+        addBatchController.addBatch(new AddBatchRequest(latestBatchReference, sku, 10, LocalDateTime.now().plusDays(2)));
 
-        session.getTransaction().commit();
-
-        var response = controller.allocate(new AllocateRequest("order-005", "SMALL-TABLE", 1));
+        var response = allocateController.allocate(new AllocateRequest("order-001", sku, 1));
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(response.getBody()).contains("batch-001");
+        assertThat(response.getBody()).contains(earliestBatchReference);
     }
 }
