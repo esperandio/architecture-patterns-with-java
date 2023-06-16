@@ -6,10 +6,7 @@
 <hibernate-configuration>
     <session-factory>
         <!-- Database connection settings -->
-        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://db/test?serverTimezone=UTC</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">my-secret-pw</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>

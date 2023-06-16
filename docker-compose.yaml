@@ -12,6 +12,9 @@ services:
     command: tail -f /dev/null
     environment:
       - GRADLE_USER_HOME=/app/.gradle
+      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
   db:
     image: mysql:8.0.29
     container_name: db

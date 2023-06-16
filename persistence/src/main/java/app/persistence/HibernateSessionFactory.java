@@ -10,6 +10,10 @@ public class HibernateSessionFactory {
 
         configuration.configure("hibernate.cfg.xml");
 
+        configuration.setProperty("hibernate.connection.url", System.getenv("DATABASE_URL"));
+        configuration.setProperty("hibernate.connection.username", System.getenv("DATABASE_USERNAME"));
+        configuration.setProperty("hibernate.connection.password", System.getenv("DATABASE_PASSWORD"));
+
         // Create Session Factory
         SessionFactory sessionFactory = configuration.buildSessionFactory();
  
