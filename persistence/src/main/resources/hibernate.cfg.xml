@@ -11,6 +11,7 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
 
+        <mapping resource="Product.hbm.xml" />
         <mapping resource="Batch.hbm.xml" />
         <mapping resource="OrderLine.hbm.xml" />
     </session-factory>

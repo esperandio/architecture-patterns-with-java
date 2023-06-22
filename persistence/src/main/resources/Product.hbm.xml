@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+    <class name="app.domain.Product" table="Products">
+        <id name="sku" column="Sku" access="field"/>
+
+        <bag name="batches" cascade="all-delete-orphan" nullable="false" access="field">
+            <key column="Sku"/>
+            <one-to-many class="app.domain.Batch"/>
+        </bag>
+    </class>
+</hibernate-mapping>

@@ -1,10 +1,19 @@
 ```sql
+CREATE TABLE `Products` (
+  `Sku` varchar(100) NOT NULL,
+  PRIMARY KEY (`Sku`)
+);
+```
+
+```sql
 CREATE TABLE `Batches` (
   `Reference` varchar(255) NOT NULL,
   `Sku` varchar(255) NOT NULL,
   `PurchasedQuantity` int NOT NULL,
   `Eta` datetime(6) DEFAULT NULL,
-  PRIMARY KEY (`Reference`)
+  PRIMARY KEY (`Reference`),
+  KEY `Batches_FK` (`Sku`),
+  CONSTRAINT `Batches_FK` FOREIGN KEY (`Sku`) REFERENCES `Products` (`Sku`) ON DELETE CASCADE
 );
 ```
 
