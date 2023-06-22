@@ -20,6 +20,10 @@ public class Product {
         this.batches = batches;
     }
 
+    public String getSku() {
+        return this.sku;
+    }
+
     public String allocate(String orderId, String sku, int quantity) {
         var orderLine = new OrderLine(orderId, sku, quantity);
 
