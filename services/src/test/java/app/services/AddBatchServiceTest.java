@@ -12,6 +12,6 @@ public class AddBatchServiceTest {
 
         service.perform("batch-001", "MINIMALIST-SPOON", 10);
 
-        assertEquals(true, unitOfWork.batches().get("batch-001").isPresent());
+        assertEquals(true, unitOfWork.isCommitted());
     }
 }

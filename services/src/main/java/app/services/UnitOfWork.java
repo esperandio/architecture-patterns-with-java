@@ -1,9 +1,9 @@
 package app.services;
 
-import app.domain.BatchRepository;
+import app.domain.ProductRepository;
 
 public interface UnitOfWork {
     void commit();
     void rollback();
-    BatchRepository batches();
+    ProductRepository products();
 }

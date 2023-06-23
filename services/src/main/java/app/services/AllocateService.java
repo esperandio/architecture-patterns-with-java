@@ -1,9 +1,8 @@
 package app.services;
 
-import java.util.List;
+import java.util.Optional;
 
 import app.domain.*;
-import static app.domain.AllocationService.allocate;
 
 public class AllocateService {
     private UnitOfWork unitOfWork;
@@ -13,11 +12,13 @@ public class AllocateService {
     }
 
     public String perform(String orderId, String sku, int quantity) {
-        List<Batch> batches = this.unitOfWork.batches().list();
+        Optional<Product> product = this.unitOfWork.products().get(sku);
 
-        var orderLine = new OrderLine(orderId, sku, quantity);
+        if (product.isEmpty()) {
+            return "";
+        }
 
-        String batchReference = allocate(orderLine, batches);
+        String batchReference = product.get().allocate(orderId, sku, quantity);
 
         this.unitOfWork.commit();
 

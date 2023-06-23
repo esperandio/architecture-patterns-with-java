@@ -2,16 +2,16 @@ package app.persistence;
 
 import org.hibernate.Session;
 
-import app.domain.BatchRepository;
+import app.domain.ProductRepository;
 import app.services.UnitOfWork;
 
 public class HibernateUnitOfWork implements UnitOfWork {
     private Session session;
-    private BatchRepository batchRepository;
+    private ProductRepository productRepository;
 
     public HibernateUnitOfWork() {
         this.session = new HibernateSessionFactory().create();
-        this.batchRepository = new HibernateBatchRepository(this.session);
+        this.productRepository = new HibernateProductRepository(this.session);
 
         this.session.beginTransaction();
     }
@@ -27,7 +27,7 @@ public class HibernateUnitOfWork implements UnitOfWork {
     }
 
     @Override
-    public BatchRepository batches() {
-        return this.batchRepository;
+    public ProductRepository products() {
+        return this.productRepository;
     }
 }
