@@ -41,6 +41,12 @@ public class Product {
         return batch.get().getReference();
     }
 
+    public void addBatch(String reference, String sku, int purchasedQuantity, LocalDateTime eta) {
+        var batch = new Batch(reference, sku, purchasedQuantity, eta);
+
+        this.batches.add(batch);
+    }
+
     @Override
     public boolean equals(Object o) {
         Product product = (Product) o;
