@@ -19,7 +19,7 @@ public class SessionTest {
     @BeforeEach
     public void initEach() {
         this.session.doWork(connection -> {
-            connection.prepareStatement("DELETE FROM Batches").executeUpdate();
+            connection.prepareStatement("DELETE FROM Products").executeUpdate();
         });
     }
 
@@ -28,6 +28,7 @@ public class SessionTest {
         this.session.beginTransaction();
 
         this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('SMALL-TABLE')").executeUpdate();
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-002', 'SMALL-TABLE', 20)").executeUpdate();
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-003', 'SMALL-TABLE', 20)").executeUpdate();
@@ -51,6 +52,7 @@ public class SessionTest {
         this.session.beginTransaction();
 
         this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('SMALL-TABLE')").executeUpdate();
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-001','SMALL-TABLE', 5)").executeUpdate();
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-002','SMALL-TABLE', 5)").executeUpdate();
@@ -68,8 +70,10 @@ public class SessionTest {
         batch.allocate(new OrderLine("order-001", "BLUE-VASE", 2));
         batch.allocate(new OrderLine("order-002", "BLUE-VASE", 2));
 
+        var product = new Product("BLUE-VASE", Arrays.asList(batch));
+
         this.session.beginTransaction();
-        this.session.persist(batch);
+        this.session.persist(product);
         this.session.getTransaction().commit();
 
         List<Batch> batches = this.session.createQuery("FROM Batch", Batch.class).list();
@@ -81,6 +85,7 @@ public class SessionTest {
     @Test
     void canModifyAnExistingBatchAndPersist1() {
         this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('SMALL-TABLE')").executeUpdate();
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-001','SMALL-TABLE', 5)").executeUpdate();
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-002','SMALL-TABLE', 5)").executeUpdate();
@@ -100,6 +105,7 @@ public class SessionTest {
     @Test
     void canModifyAnExistingBatchAndPersist2() {
         this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('SMALL-TABLE')").executeUpdate();
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-001','SMALL-TABLE', 5)").executeUpdate();
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-002','SMALL-TABLE', 5)").executeUpdate();
@@ -119,6 +125,7 @@ public class SessionTest {
     @Test
     void canModifyAnExistingBatchAndPersist3() {
         this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('SMALL-TABLE')").executeUpdate();
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-001','SMALL-TABLE', 5)").executeUpdate();
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-002','SMALL-TABLE', 5)").executeUpdate();
