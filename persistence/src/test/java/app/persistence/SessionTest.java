@@ -24,23 +24,22 @@ public class SessionTest {
     }
 
     @Test
-    void canRetrieveBatches() {
+    void canRetrieveProducts() {
         this.session.beginTransaction();
 
         this.session.doWork(connection -> {
+            connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('BLUE-VASE')").executeUpdate();
             connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('SMALL-TABLE')").executeUpdate();
-            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
-            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-002', 'SMALL-TABLE', 20)").executeUpdate();
-            connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-003', 'SMALL-TABLE', 20)").executeUpdate();
+            connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('UNCOMFORTABLE-CHAIR')").executeUpdate();
         });
 
         this.session.getTransaction().commit();
 
-        List<Batch> actual = this.session.createQuery("FROM Batch", Batch.class).list();
-        List<Batch> expected = Arrays.asList(
-            new Batch("batch-001", "SMALL-TABLE", 20),
-            new Batch("batch-002", "SMALL-TABLE", 20),
-            new Batch("batch-003", "SMALL-TABLE", 20)
+        List<Product> actual = this.session.createQuery("FROM Product", Product.class).list();
+        List<Product> expected = Arrays.asList(
+            new Product("BLUE-VASE"),
+            new Product("SMALL-TABLE"),
+            new Product("UNCOMFORTABLE-CHAIR")
         );
 
         assertEquals(3, actual.size());
@@ -48,7 +47,7 @@ public class SessionTest {
     }
 
     @Test
-    void canRetrieveSpecificBatch() {
+    void canRetrieveSpecificProduct() {
         this.session.beginTransaction();
 
         this.session.doWork(connection -> {
@@ -60,30 +59,29 @@ public class SessionTest {
 
         this.session.getTransaction().commit();
 
-        assertEquals(10, this.session.get(Batch.class, "batch-001").getAllocatedQuantity());
+        assertEquals(10, this.session.get(Product.class, "SMALL-TABLE").getAvailableQuantity());
     }
 
     @Test
-    void canPersistNewBatch() {
-        var product = new Product("BLUE-VASE");
+    void canPersistNewProduct() {
+        var newProduct = new Product("BLUE-VASE");
 
-        product.addBatch("batch001", "BLUE-VASE", 10, null);
+        newProduct.addBatch("batch001", "BLUE-VASE", 10, null);
 
-        product.allocate("order-001", "BLUE-VASE", 2);
-        product.allocate("order-002", "BLUE-VASE", 2);
+        newProduct.allocate("order-001", "BLUE-VASE", 2);
+        newProduct.allocate("order-002", "BLUE-VASE", 2);
 
         this.session.beginTransaction();
-        this.session.persist(product);
+        this.session.persist(newProduct);
         this.session.getTransaction().commit();
 
-        List<Batch> batches = this.session.createQuery("FROM Batch", Batch.class).list();
+        Product product = this.session.get(Product.class, "BLUE-VASE");
 
-        assertEquals(1, batches.size());
-        assertEquals(4, batches.get(0).getAllocatedQuantity());
+        assertEquals(6, product.getAvailableQuantity());
     }
 
     @Test
-    void canModifyAnExistingBatchAndPersist1() {
+    void canModifyAnExistingProductAndPersist1() {
         this.session.doWork(connection -> {
             connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('SMALL-TABLE')").executeUpdate();
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
@@ -99,11 +97,11 @@ public class SessionTest {
         this.session.persist(product);
         this.session.getTransaction().commit();
 
-        assertEquals(18, this.session.get(Batch.class, "batch-001").getAllocatedQuantity());
+        assertEquals(2, this.session.get(Product.class, "SMALL-TABLE").getAvailableQuantity());
     }
 
     @Test
-    void canModifyAnExistingBatchAndPersist2() {
+    void canModifyAnExistingProductAndPersist2() {
         this.session.doWork(connection -> {
             connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('SMALL-TABLE')").executeUpdate();
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
@@ -119,11 +117,11 @@ public class SessionTest {
         this.session.persist(product);
         this.session.getTransaction().commit();
 
-        assertEquals(5, this.session.get(Batch.class, "batch-001").getAllocatedQuantity());
+        assertEquals(15, this.session.get(Product.class, "SMALL-TABLE").getAvailableQuantity());
     }
 
     @Test
-    void canModifyAnExistingBatchAndPersist3() {
+    void canModifyAnExistingProductAndPersist3() {
         this.session.doWork(connection -> {
             connection.prepareStatement("INSERT INTO Products (Sku) VALUES ('SMALL-TABLE')").executeUpdate();
             connection.prepareStatement("INSERT INTO Batches (Reference, Sku, PurchasedQuantity) VALUES ('batch-001', 'SMALL-TABLE', 20)").executeUpdate();
