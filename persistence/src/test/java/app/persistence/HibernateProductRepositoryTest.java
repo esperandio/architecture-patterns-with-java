@@ -88,35 +88,18 @@ public class HibernateProductRepositoryTest {
     void canPersistNewProduct() {
         var repository = new HibernateProductRepository(this.session);
 
-        var earliest = new Batch(
-            "speedy-batch",
-            "MINIMALIST-SPOON",
-            100,
-            LocalDateTime.now()
-        );
-
-        var medium = new Batch(
-            "normal-batch",
-            "MINIMALIST-SPOON",
-            100,
-            LocalDateTime.now().plusDays(1)
-        );
-
-        var latest = new Batch(
-            "slow-batch",
-            "MINIMALIST-SPOON",
-            100,
-            LocalDateTime.now().plusDays(2)
-        );
-
         this.session.beginTransaction();
 
-        repository.add(new Product("MINIMALIST-SPOON", Arrays.asList(latest, medium, earliest)));
+        var product = new Product("MINIMALIST-SPOON");
+
+        product.addBatch("speedy-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now());
+        product.addBatch("normal-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now().plusDays(1));
+        product.addBatch("slow-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now().plusDays(2));
+
+        repository.add(product);
 
         this.session.getTransaction().commit();
 
-        Optional<Product> product = repository.get("MINIMALIST-SPOON");
-
-        assertEquals(true, product.isPresent());
+        assertEquals(true, repository.get("MINIMALIST-SPOON").isPresent());
     }
 }
