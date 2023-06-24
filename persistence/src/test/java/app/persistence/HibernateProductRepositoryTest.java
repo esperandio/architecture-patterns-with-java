@@ -90,16 +90,19 @@ public class HibernateProductRepositoryTest {
 
         this.session.beginTransaction();
 
-        var product = new Product("MINIMALIST-SPOON");
+        var newProduct = new Product("MINIMALIST-SPOON");
 
-        product.addBatch("speedy-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now());
-        product.addBatch("normal-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now().plusDays(1));
-        product.addBatch("slow-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now().plusDays(2));
+        newProduct.addBatch("speedy-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now());
+        newProduct.addBatch("normal-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now().plusDays(1));
+        newProduct.addBatch("slow-batch", "MINIMALIST-SPOON", 100, LocalDateTime.now().plusDays(2));
 
-        repository.add(product);
+        repository.add(newProduct);
 
         this.session.getTransaction().commit();
 
-        assertEquals(true, repository.get("MINIMALIST-SPOON").isPresent());
+        Optional<Product> product = repository.get("MINIMALIST-SPOON");
+
+        assertEquals(true, product.isPresent());
+        assertEquals(300, product.get().getAvailableQuantity());
     }
 }
