@@ -1,6 +1,6 @@
 package app.domain;
 
-public class OrderLine {
+class OrderLine {
     private String orderId;
     private String sku;
     private int quantity;
