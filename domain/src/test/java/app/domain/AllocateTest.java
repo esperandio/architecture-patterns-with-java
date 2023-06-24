@@ -108,19 +108,15 @@ public class AllocateTest {
 
     @Test
     void availableQuantityIsIncreasedWhenOrderLineIsDeallocated() {
-        var orderLine = new OrderLine("order-001", "SMALL-TABLE", 2);
-        var batch = new Batch(
-            "batch-001", 
-            "SMALL-TABLE", 
-            20, 
-            LocalDateTime.now(), 
-            new ArrayList<OrderLine>(Arrays.asList(orderLine))
-        );
+        var product = new Product("SMALL-TABLE");
 
-        assertEquals(18, batch.getAvailableQuantity());
+        product.addBatch("batch-001", "SMALL-TABLE", 20, LocalDateTime.now());
+        product.allocate("order-001", "SMALL-TABLE", 2);
 
-        batch.deallocate(orderLine);
+        assertEquals(18, product.getAvailableQuantity());
 
-        assertEquals(20, batch.getAvailableQuantity());
+        product.deallocate("order-001", "SMALL-TABLE", 2);
+
+        assertEquals(20, product.getAvailableQuantity());
     }
 }

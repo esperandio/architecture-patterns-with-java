@@ -24,6 +24,10 @@ public class Product {
         return this.sku;
     }
 
+    public int getAvailableQuantity() {
+        return this.batches.stream().mapToInt(x -> x.getAvailableQuantity()).sum();
+    }
+
     public String allocate(String orderId, String sku, int quantity) {
         var orderLine = new OrderLine(orderId, sku, quantity);
 
@@ -39,6 +43,20 @@ public class Product {
         batch.get().allocate(orderLine);
 
         return batch.get().getReference();
+    }
+
+    public void deallocate(String orderId, String sku, int quantity) {
+        var orderLine = new OrderLine(orderId, sku, quantity);
+
+        Optional<Batch> batch = this.batches.stream()
+            .filter((x) -> x.hasOrderLine(orderLine))
+            .findFirst();
+        
+        if (batch.isEmpty()) {
+            return;
+        }
+
+        batch.get().deallocate(orderLine);
     }
 
     public void addBatch(String reference, String sku, int purchasedQuantity, LocalDateTime eta) {

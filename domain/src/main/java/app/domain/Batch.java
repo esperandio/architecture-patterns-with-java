@@ -64,7 +64,7 @@ public class Batch {
         return true;
     }
 
-    private boolean hasOrderLine(OrderLine orderLine) {
+    public boolean hasOrderLine(OrderLine orderLine) {
         return this.orderLines.stream().filter((x) -> x.equals(orderLine)).count() > 0;
     }
 
