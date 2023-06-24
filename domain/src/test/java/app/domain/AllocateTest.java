@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static app.domain.AllocationService.allocate;
-
 public class AllocateTest {
     @Test
     void availableQuantityIsReducedWhenOrderLineIsAllocated() {
@@ -66,9 +64,9 @@ public class AllocateTest {
             LocalDateTime.now().plusDays(2)
         );
 
-        var orderLine = new OrderLine("order001", "RETRO-CLOCK", 10);
+        var product = new Product("RETRO-CLOCK", Arrays.asList(shipmentBatch, inStockBatch));
 
-        var batchReference = allocate(orderLine, Arrays.asList(shipmentBatch, inStockBatch));
+        var batchReference = product.allocate("order001", "RETRO-CLOCK", 10);
 
         assertEquals("in-stock-batch", batchReference);
         assertEquals(90, inStockBatch.getAvailableQuantity());
@@ -98,9 +96,9 @@ public class AllocateTest {
             LocalDateTime.now().plusDays(2)
         );
 
-        var orderLine = new OrderLine("order-001", "MINIMALIST-SPOON", 10);
+        var product = new Product("MINIMALIST-SPOON", Arrays.asList(latest, medium, earliest));
 
-        var batchReference = allocate(orderLine, Arrays.asList(latest, medium, earliest));
+        var batchReference = product.allocate("order-001", "MINIMALIST-SPOON", 10);
 
         assertEquals("speedy-batch", batchReference);
         assertEquals(90, earliest.getAvailableQuantity());
