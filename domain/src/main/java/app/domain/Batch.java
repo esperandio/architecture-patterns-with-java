@@ -3,7 +3,7 @@ package app.domain;
 import java.util.*;
 import java.time.LocalDateTime;
 
-public class Batch {
+class Batch {
     private String reference;
     private String sku;
     private int purchasedQuantity;
