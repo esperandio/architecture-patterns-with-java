@@ -111,12 +111,12 @@ public class SessionTest {
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-002','SMALL-TABLE', 5)").executeUpdate();
         });
 
-        var batch = this.session.get(Batch.class, "batch-001");
+        Product product = this.session.get(Product.class, "SMALL-TABLE");
 
-        batch.deallocate(new OrderLine("order-001", "SMALL-TABLE", 5));
+        product.deallocate("order-001", "SMALL-TABLE", 5);
 
         this.session.beginTransaction();
-        this.session.persist(batch);
+        this.session.persist(product);
         this.session.getTransaction().commit();
 
         assertEquals(5, this.session.get(Batch.class, "batch-001").getAllocatedQuantity());
@@ -131,15 +131,15 @@ public class SessionTest {
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-002','SMALL-TABLE', 5)").executeUpdate();
         });
 
-        var batch = this.session.get(Batch.class, "batch-001");
+        Product product = this.session.get(Product.class, "SMALL-TABLE");
 
-        batch.deallocate(new OrderLine("order-002", "SMALL-TABLE", 5));
-        batch.allocate(new OrderLine("order-003", "SMALL-TABLE", 8));
+        product.deallocate("order-002", "SMALL-TABLE", 5);
+        product.allocate("order-003", "SMALL-TABLE", 8);
 
         this.session.beginTransaction();
-        this.session.persist(batch);
+        this.session.persist(product);
         this.session.getTransaction().commit();
 
-        assertEquals(13, this.session.get(Batch.class, "batch-001").getAllocatedQuantity());
+        assertEquals(7, this.session.get(Product.class, "SMALL-TABLE").getAvailableQuantity());
     }
 }
