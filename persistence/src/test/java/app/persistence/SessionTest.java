@@ -65,12 +65,12 @@ public class SessionTest {
 
     @Test
     void canPersistNewBatch() {
-        var batch = new Batch("batch001", "BLUE-VASE", 10);
+        var product = new Product("BLUE-VASE");
 
-        batch.allocate(new OrderLine("order-001", "BLUE-VASE", 2));
-        batch.allocate(new OrderLine("order-002", "BLUE-VASE", 2));
+        product.addBatch("batch001", "BLUE-VASE", 10, null);
 
-        var product = new Product("BLUE-VASE", Arrays.asList(batch));
+        product.allocate("order-001", "BLUE-VASE", 2);
+        product.allocate("order-002", "BLUE-VASE", 2);
 
         this.session.beginTransaction();
         this.session.persist(product);
@@ -91,12 +91,12 @@ public class SessionTest {
             connection.prepareStatement("INSERT INTO OrderLines (BatchReference, OrderId, Sku, Quantity) VALUES ('batch-001', 'order-002','SMALL-TABLE', 5)").executeUpdate();
         });
 
-        var batch = this.session.get(Batch.class, "batch-001");
+        Product product = this.session.get(Product.class, "SMALL-TABLE");
 
-        batch.allocate(new OrderLine("order-003", "SMALL-TABLE", 8));
+        product.allocate("order-003", "SMALL-TABLE", 8);
 
         this.session.beginTransaction();
-        this.session.persist(batch);
+        this.session.persist(product);
         this.session.getTransaction().commit();
 
         assertEquals(18, this.session.get(Batch.class, "batch-001").getAllocatedQuantity());
