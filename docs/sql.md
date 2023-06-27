@@ -1,6 +1,7 @@
 ```sql
 CREATE TABLE `Products` (
   `Sku` varchar(100) NOT NULL,
+  `Version` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Sku`)
 );
 ```

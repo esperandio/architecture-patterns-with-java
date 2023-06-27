@@ -1,5 +1,6 @@
 package app.domain;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Optional;
 
 public class Product {
     private String sku;
+    private Instant version;
     private List<Batch> batches;
 
     protected Product() {}
@@ -22,6 +24,10 @@ public class Product {
 
     public String getSku() {
         return this.sku;
+    }
+
+    public long getVersion() {
+        return this.version.toEpochMilli();
     }
 
     public int getAvailableQuantity() {
@@ -42,6 +48,8 @@ public class Product {
 
         batch.get().allocate(orderLine);
 
+        this.version = Instant.now();
+
         return batch.get().getReference();
     }
 
@@ -57,12 +65,16 @@ public class Product {
         }
 
         batch.get().deallocate(orderLine);
+
+        this.version = Instant.now();
     }
 
     public void addBatch(String reference, String sku, int purchasedQuantity, LocalDateTime eta) {
         var batch = new Batch(reference, sku, purchasedQuantity, eta);
 
         this.batches.add(batch);
+
+        this.version = Instant.now();
     }
 
     @Override

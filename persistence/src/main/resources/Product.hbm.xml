@@ -6,6 +6,7 @@
 <hibernate-mapping>
     <class name="app.domain.Product" table="Products">
         <id name="sku" column="Sku" access="field"/>
+        <property name="version" column="Version" access="field"/>
 
         <bag name="batches" cascade="all-delete-orphan" nullable="false" access="field">
             <key column="Sku"/>

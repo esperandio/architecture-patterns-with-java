@@ -39,3 +39,8 @@
 - Spring
     - https://www.baeldung.com/spring-response-entity
     - https://www.baeldung.com/spring-request-response-body
+- Optimistic Locking
+    - Optimistic Locking in JPA (https://www.baeldung.com/jpa-optimistic-locking)
+    - Can JPA be persuaded to convert between eg UUIDs and Strings? (https://stackoverflow.com/questions/8446378/can-jpa-be-persuaded-to-convert-between-eg-uuids-and-strings)
+    - Can you configure JPA to use a UUID for @Version in optimistic concurrency (https://stackoverflow.com/questions/54333122/can-you-configure-jpa-to-use-a-uuid-for-version-in-optimistic-concurrency)
+    - Chapter 5. Locking (https://docs.jboss.org/hibernate/orm/4.3/devguide/en-US/html/ch05.html)
