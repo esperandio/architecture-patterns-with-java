@@ -10,7 +10,11 @@ public class HibernateUnitOfWork implements UnitOfWork {
     private ProductRepository productRepository;
 
     public HibernateUnitOfWork() {
-        this.session = new HibernateSessionFactory().create();
+        this(new HibernateSessionFactory().create());
+    }
+
+    public HibernateUnitOfWork(Session session) {
+        this.session = session;
         this.productRepository = new HibernateProductRepository(this.session);
 
         this.session.beginTransaction();

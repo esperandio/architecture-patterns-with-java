@@ -19,6 +19,14 @@ test {
     // Discover and execute JUnit Platform-based tests
     useJUnitPlatform()
 
+    // listen to events in the test execution lifecycle
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    // The maximum number of test processes to start in parallel.
+    // maxParallelForks = 2
+
     // Show standard out and standard error of the test JVM(s) on the console {
     testLogging {
         events "passed", "skipped", "failed"

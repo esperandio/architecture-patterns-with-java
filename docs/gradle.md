@@ -13,5 +13,6 @@ gradle -q run
 ## Run tests
 
 ```sh
-gradle test
+./gradlew test
+./gradlew -p persistence test --tests "OptimisticConcurrencyTest*" --parallel
 ```
