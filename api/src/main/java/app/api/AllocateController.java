@@ -6,16 +6,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.services.AllocateService;
-import app.persistence.HibernateUnitOfWork;
+import app.services.UnitOfWork;
 
 record AllocateRequest(String orderId, String sku, int qtd) { }
 
 @RestController
 public class AllocateController {
+    private final UnitOfWork unitOfWork;
+
+    public AllocateController(UnitOfWork unitOfWork) {
+        this.unitOfWork = unitOfWork;
+    }
+
     @PostMapping("allocate")
     public ResponseEntity<String> allocate(AllocateRequest request) {
-        var unitOfWork = new HibernateUnitOfWork();
-        var service = new AllocateService(unitOfWork);
+        var service = new AllocateService(this.unitOfWork);
 
         String batchReference = service.perform(request.orderId(), request.sku(), request.qtd());
 
