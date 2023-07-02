@@ -22,6 +22,10 @@ public class HibernateUnitOfWork implements UnitOfWork {
 
     @Override
     public void commit() {
+        if (!this.session.getTransaction().isActive()) {
+            this.session.beginTransaction();
+        }
+
         this.session.getTransaction().commit();
     }
 
