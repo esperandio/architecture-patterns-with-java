@@ -6,7 +6,7 @@ import java.util.Optional;
 import app.domain.Product;
 
 public class AddBatchService {
-    private UnitOfWork unitOfWork;
+    private final UnitOfWork unitOfWork;
     
     public AddBatchService(UnitOfWork unitOfWork) {
         this.unitOfWork = unitOfWork;

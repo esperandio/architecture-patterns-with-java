@@ -5,7 +5,7 @@ import java.util.Optional;
 import app.domain.*;
 
 public class AllocateService {
-    private UnitOfWork unitOfWork;
+    private final UnitOfWork unitOfWork;
 
     public AllocateService(UnitOfWork unitOfWork) {
         this.unitOfWork = unitOfWork;
