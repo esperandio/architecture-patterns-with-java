@@ -6,8 +6,8 @@ import app.domain.ProductRepository;
 import app.services.UnitOfWork;
 
 public class HibernateUnitOfWork implements UnitOfWork {
-    private Session session;
-    private ProductRepository productRepository;
+    private final Session session;
+    private final ProductRepository productRepository;
 
     public HibernateUnitOfWork() {
         this(new HibernateSessionFactory().create());

@@ -9,7 +9,7 @@ import app.domain.Product;
 import app.domain.ProductRepository;
 
 public class HibernateProductRepository implements ProductRepository {
-    private Session session;
+    private final Session session;
 
     public HibernateProductRepository(Session session) {
         this.session = session;
