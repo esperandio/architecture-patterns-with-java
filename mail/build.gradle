@@ -1,0 +1,33 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'jakarta.mail:jakarta.mail-api:2.0.1'
+    implementation 'com.sun.mail:jakarta.mail:2.0.1'
+    implementation project(':services')
+    testImplementation(platform('org.junit:junit-bom:5.9.3'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+}
+
+test {
+    // Discover and execute JUnit Platform-based tests
+    useJUnitPlatform()
+
+    // listen to events in the test execution lifecycle
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    // The maximum number of test processes to start in parallel.
+    // maxParallelForks = 2
+
+    // Show standard out and standard error of the test JVM(s) on the console {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
