@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+record AllocatedEvent(String orderId, String sku, int qty, String batchReference) implements Event {};
+
 public class Product {
     private String sku;
     private Instant version;
-    private List<Batch> batches;
+    private List<Batch> batches = new ArrayList<Batch>();
+    private final List<Event> domainEvents = new ArrayList<Event>();
 
     protected Product() {}
 
@@ -34,6 +37,10 @@ public class Product {
         return this.batches.stream().mapToInt(x -> x.getAvailableQuantity()).sum();
     }
 
+    public ReadOnlyList<Event> getDomainEvents() {
+        return new ReadOnlyList<Event>(this.domainEvents);
+    }
+
     public String allocate(String orderId, String sku, int quantity) {
         var orderLine = new OrderLine(orderId, sku, quantity);
 
@@ -48,9 +55,13 @@ public class Product {
 
         batch.get().allocate(orderLine);
 
+        String batchReference = batch.get().getReference();
+
+        this.domainEvents.add(new AllocatedEvent(orderId, sku, quantity, batchReference));
+
         this.version = Instant.now();
 
-        return batch.get().getReference();
+        return batchReference;
     }
 
     public void deallocate(String orderId, String sku, int quantity) {

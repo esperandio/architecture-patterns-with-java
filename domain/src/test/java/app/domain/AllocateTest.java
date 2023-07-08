@@ -2,6 +2,7 @@ package app.domain;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -16,6 +17,17 @@ public class AllocateTest {
 
         assertEquals(18, batch.getAvailableQuantity());
         assertEquals(2, batch.getAllocatedQuantity());
+    }
+
+    @Test
+    void allocatedEventIsRecordedWhenOrderLineIsAllocated() {
+        var batch = new Batch("batch001", "RETRO-CLOCK", 20);
+        var product = new Product("RETRO-CLOCK", Arrays.asList(batch));
+
+        product.allocate("order001", "RETRO-CLOCK", 2);
+
+        assertEquals(1, product.getDomainEvents().size());
+        assertInstanceOf(AllocatedEvent.class, product.getDomainEvents().getElementAt(0));
     }
 
     @Test
