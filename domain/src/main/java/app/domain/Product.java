@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-record AllocatedEvent(String orderId, String sku, int qty, String batchReference) implements Event {};
-
 public class Product {
     private String sku;
     private Instant version;
