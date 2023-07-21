@@ -11,7 +11,7 @@
         <property name="eta" column="Eta" access="field"/>
 
         <bag name="orderLines" cascade="all-delete-orphan" nullable="false" access="field">
-            <key column="BatchReference"/>
+            <key column="BatchReference" on-delete="cascade"/>
             <one-to-many class="app.domain.OrderLine"/>
         </bag>
     </class>

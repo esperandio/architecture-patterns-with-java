@@ -11,6 +11,9 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
 
+        <!-- Enable automatic schema generation -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
         <mapping resource="Product.hbm.xml" />
         <mapping resource="Batch.hbm.xml" />
         <mapping resource="OrderLine.hbm.xml" />

@@ -9,7 +9,7 @@
         <property name="version" column="Version" access="field"/>
 
         <bag name="batches" cascade="all-delete-orphan" nullable="false" access="field">
-            <key column="Sku"/>
+            <key column="Sku" on-delete="cascade"/>
             <one-to-many class="app.domain.Batch"/>
         </bag>
     </class>
