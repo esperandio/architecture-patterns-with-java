@@ -48,6 +48,7 @@ public class Product {
             .findFirst();
 
         if (batch.isEmpty()) {
+            this.domainEvents.add(new OutOfStockEvent(sku));
             return "";
         }
 

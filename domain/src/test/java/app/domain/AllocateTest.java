@@ -31,6 +31,17 @@ public class AllocateTest {
     }
 
     @Test
+    void outOfStockEventIsRecordedWhenCannotAllocate() {
+        var batch = new Batch("batch001", "RETRO-CLOCK", 20);
+        var product = new Product("RETRO-CLOCK", Arrays.asList(batch));
+
+        product.allocate("order001", "RETRO-CLOCK", 100);
+
+        assertEquals(1, product.getDomainEvents().size());
+        assertInstanceOf(OutOfStockEvent.class, product.getDomainEvents().getElementAt(0));
+    }
+
+    @Test
     void cannotAllocateIfAvailableSmallerThanRequired() {
         var batch = new Batch("batch001", "BLUE-CUSHION", 1);
         var orderLine = new OrderLine("order001", "BLUE-CUSHION", 2);
